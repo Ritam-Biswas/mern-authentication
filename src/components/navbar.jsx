@@ -6,7 +6,7 @@ const Navbar = () => {
     <nav className='flex justify-between py-[20px] bg-blue lg:px-[120px] items-center h-[11vh]'>
       <div>
         <Link to='/'>
-          <h3>Logo</h3>        
+          <h3 className='text-[#004cff]'>Logo</h3>        
         </Link>
       </div>
       <div className='flex gap-x-[60px] items-center'>
