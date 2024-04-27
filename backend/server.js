@@ -11,7 +11,7 @@ connectToDatabase()
 .then(() => {
 
     app.use(express.json());
-    app.use('api/users', userRouter);
+    app.use('/api/users', userRouter);
 
     app.listen(PORT, ()=>{
         console.log(`listening on server ${PORT}`);
