@@ -19,14 +19,15 @@ const Login = () => {
   const handleSubmit = async (event) => {
       event.preventDefault();
       try{
-        const response = await fetch('http://localhost:3000/auth/login',{
+        const response = await fetch('http://localhost:3000/api/users/auth/login',{
           method:'POST',
+          credentials: 'include',
           headers:{
             'Content-Type':'application/json'
           },
           body: JSON.stringify(formValues)
         })
-        console.log(response);
+        console.log(response.json());
       }catch(error){
         console.error('Error\n', error);
       }
