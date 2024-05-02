@@ -32,17 +32,6 @@ const getUser = async (req, res) => {
     }
 }
 
-// const postUsers = async (req, res) => {
-//     const user = req.body;
-
-//     try{
-//         const newUser = await User.create(user)
-//         res.status(201).json(newUser);
-//     }catch(error){
-//         console.error('Error creating user\n', error);
-//     }
-// }
-
 const registerUser = async (req, res) => {
     const {username, password, confirmPassword, name, address, job} = req.body;
 
@@ -75,14 +64,13 @@ const loginUser = async (req, res) => {
         if(loginSuccess){
             const {username, name} = user;
             const authToken = jwt.sign({username, name}, process.env.JWT_SECRET);
-            res.cookie('authToken', authToken, {maxAge: 86400});
-            res.status(200).json({message: 'login successfull'});
+            res.cookie('authToken', authToken, {maxAge: 86400, httpOnly: false});
+            res.status(200).json({message: 'login successfull', authToken});
         }
     }catch(error){
         console.error('Error login in\n', error);
     }
-
-    
+  
 }
 
 module.exports = {getUsers, registerUser, getUser, loginUser};
