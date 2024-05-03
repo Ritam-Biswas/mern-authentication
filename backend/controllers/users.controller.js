@@ -73,4 +73,8 @@ const loginUser = async (req, res) => {
   
 }
 
-module.exports = {getUsers, registerUser, getUser, loginUser};
+const verifyUser = (req, res) => {
+    return res.json(req.user);
+}
+
+module.exports = {getUsers, registerUser, getUser, loginUser, verifyUser};
