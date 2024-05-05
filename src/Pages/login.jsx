@@ -1,5 +1,8 @@
 import React, { useState } from 'react'
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
+import { useContext } from 'react'
+
+import { UserContext } from '../context/user'
 
 const initialValues = {
   username: '',
@@ -9,6 +12,10 @@ const initialValues = {
 const Login = () => {
 
   const [formValues, setFormValues] = useState(initialValues);
+
+  const { verifyAndSetUser } = useContext(UserContext);
+
+  const navigate = useNavigate();
 
   const handleChange = (event) => {
     const name = event.target.name;
@@ -27,7 +34,9 @@ const Login = () => {
           },
           body: JSON.stringify(formValues)
         })
-        console.log(response.json());
+        const data = await response.json()
+        await verifyAndSetUser(data.authToken)
+        navigate('/profile')
       }catch(error){
         console.error('Error\n', error);
       }

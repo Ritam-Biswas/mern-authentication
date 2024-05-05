@@ -60,11 +60,16 @@ const loginUser = async (req, res) => {
 
     try{
         const user = await User.findOne({username});
+
+        if(!user){
+            return res.json({message: 'User not registered'})
+        }
+
         const loginSuccess = await bcrypt.compare(password, user.password);
         if(loginSuccess){
             const {username, name} = user;
             const authToken = jwt.sign({username, name}, process.env.JWT_SECRET);
-            res.cookie('authToken', authToken, {maxAge: 86400, httpOnly: false});
+            res.cookie('authToken', authToken, {maxAge:10000, httpOnly: false});
             res.status(200).json({message: 'login successfull', authToken});
         }
     }catch(error){
